@@ -1,0 +1,14 @@
+DROP DATABASE IF EXISTS mvp;
+CREATE DATABASE mvp;
+
+USE mvp;
+
+CREATE TABLE dogs (
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(45) NOT NULL,
+  furColor VARCHAR(45) NOT NULL,
+  lat VARCHAR(45) NOT NULL,
+  lon VARCHAR(45) NOT NULL,
+  contactNo VARCHAR(45),
+  description VARCHAR(255)
+);

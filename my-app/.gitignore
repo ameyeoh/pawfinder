@@ -12,9 +12,10 @@
 /build
 
 # misc
-.idea
+../.idea/*
 .env
 .csv
+.eslintcache
 .DS_Store
 .env.local
 .env.development.local

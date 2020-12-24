@@ -1,5 +1,28 @@
 import React from 'react';
 import axios from 'axios';
+import Map from './Map';
+import Header from './Header';
+import ViewList from './ViewList';
+import styled from 'styled-components';
+
+const Content = styled.div`
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Top = styled.div`
+  width: 100%;
+  height: 50px;
+`;
+
+const Bottom = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -21,9 +44,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        Hello World
-      </div>
+      <Content>
+        <Top>
+          <Header />
+        </Top>
+        <Bottom>
+          <Map />
+          <ViewList />
+        </Bottom>
+      </Content>
     );
   }
 }

@@ -5,10 +5,11 @@ USE mvp;
 
 CREATE TABLE dogs (
   id SERIAL PRIMARY KEY,
+  petName VARCHAR(45),
   url VARCHAR(100) NOT NULL,
-  furColor VARCHAR(45) NOT NULL,
   lat VARCHAR(45) NOT NULL,
   lon VARCHAR(45) NOT NULL,
+  city VARCHAR(45),
   contactNo VARCHAR(45),
   description VARCHAR(255)
 );

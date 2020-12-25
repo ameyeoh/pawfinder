@@ -10,6 +10,7 @@ CREATE TABLE dogs (
   lat VARCHAR(45) NOT NULL,
   lon VARCHAR(45) NOT NULL,
   city VARCHAR(45),
+  time VARCHAR(45),
   contactNo VARCHAR(45),
   description VARCHAR(255)
 );

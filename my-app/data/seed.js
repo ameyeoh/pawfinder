@@ -36,6 +36,15 @@ const dogUrls = [
   'https://fec-ay.s3-us-west-1.amazonaws.com/dog30.jpg',
 ];
 
+const petNames = [
+  'Fido', 'Lost', 'Lost', 'Lost', 'Bella',
+  'Lost', 'Lost', 'Lost', 'Lost', 'Loki',
+  'Lost', 'Lost', 'Reggie', 'Lost', 'Baxter',
+  'Oreo', 'Lost', 'Lost', 'Harley', 'Lost',
+  'Lost', 'Coco', 'Lost', 'Lost', 'Lost',
+  'Lost', 'Lost', 'Lost', 'Luna', 'Lost',
+];
+
 const dogLocations = [
   {lat: '37.411768163273244', lon: '-122.1605769378445'}, {lat: '37.431339185560525', lon: '-122.17765181025737'}, {lat: '37.45109752231137', lon: '-122.20850953373967'},
   {lat: '37.39349256734626', lon: '-122.23088117745068'}, {lat: '37.473719607778484', lon: '-122.27934084468714'}, {lat: '37.75063345896962', lon: '-122.44676789909717'},
@@ -59,6 +68,12 @@ const cities = [
   'Woodside', 'Woodside Plaza', 'Foster City', 'Los Altos Hills', 'La Honda', 'Bellvale',
   'Sunnyvale', 'Sunnyvale', 'Cupertino', 'Hillsborough', 'Los Altos', 'Foster City',
   'Half Moon Bay', 'Duboce Triangle', 'Presidio', 'Golden Gate Park', 'Yerba Buena', 'Brisbane'
+];
+
+const times = [
+  '8 days ago', '4 days ago', '3 hours ago', '1 hour ago', '2 days ago',
+  '15 days ago', '3 days ago', '6 hours ago', '23 hours ago', '14 days ago',
+  '10 minutes ago', '20 hours ago', '5 days ago'
 ]
 
 const userNos = [
@@ -71,23 +86,24 @@ const userNos = [
 ];
 
 const dogDescriptions = [
-  'green collar', 'NA', 'minor scar on the left ear', 'NA', 'beautiful leopard spots on the back',
+  'green collar', 'NA', 'minor scar on the left ear', 'NA', 'spots on the back',
   'NA', 'NA', 'limping right leg', 'NA', 'light blue collar',
   'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA',
   'NA', 'NA', 'large brown patches on the left side of body', 'NA', 'NA',
-  'brown string as collar with gold rings', 'NA', 'NA', 'NA', 'burmese mountain dog'
+  'brown collar with gold rings', 'NA', 'NA', 'burmese mountain dog', 'NA'
 ]
 
 // create 30 records
-const createRecords = (urls, coordinates, cities, contactNos, descriptions) => {
+const createRecords = (urls, petNames, coordinates, cities, times, contactNos, descriptions) => {
   recordsWriter.pipe(fs.createWriteStream('dogs.csv'));
   for (let i = 0; i < 30; i += 1) {
     recordsWriter.write({
       url: urls[i],
-      petName: 'NA',
+      petName: petNames[i],
       lat: coordinates[i].lat,
       lon: coordinates[i].lon,
       city: cities[i],
+      time: times[Math.floor(Math.random() * 13)],
       contactNo: contactNos[i],
       description: descriptions[i]
     });
@@ -95,5 +111,5 @@ const createRecords = (urls, coordinates, cities, contactNos, descriptions) => {
   recordsWriter.end()
 }
 
-createRecords(dogUrls, dogLocations, cities, userNos, dogDescriptions);
+createRecords(dogUrls, petNames, dogLocations, cities, times, userNos, dogDescriptions);
 

@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  background: pink;
-  height: 100%;
+  background-color: pink;
+  height: calc(100vh - 50px);
   flex-grow: 1;
 `;
 
 const Map = () => {
   return (
-    <Container>Map</Container>
+    <Container className='left-container'>
+
+    </Container>
   )
 }
 

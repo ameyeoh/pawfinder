@@ -14,7 +14,7 @@ const Content = styled.div`
 
 const Top = styled.div`
   width: 100%;
-  height: 50px;
+  height: 70px;
 `;
 
 const Bottom = styled.div`
@@ -37,6 +37,9 @@ class App extends React.Component {
     .then((res) => {
       this.setState({ dogs: res.data });
     })
+    .then(() => {
+      console.log(this.state.dogs);
+    })
     .catch((err) => {
       console.log(err);
     })
@@ -50,7 +53,7 @@ class App extends React.Component {
         </Top>
         <Bottom>
           <Map />
-          <ViewList />
+          <ViewList dogs={this.state.dogs}/>
         </Bottom>
       </Content>
     );

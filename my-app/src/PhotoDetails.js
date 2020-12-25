@@ -9,11 +9,14 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
+const Wrapper = styled.div`
+  border-bottom: 1px solid #f1f1f4;
+`;
+
 const Top = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid #f1f1f4;
 `;
 
 const Name = styled.div`
@@ -22,15 +25,16 @@ const Name = styled.div`
   margin-top: 12px;
 `;
 
-const Title = styled.div`
-  font-size: 23px;
-  font-family: 'Andika New Basic', sans-serif;
-`;
+// const Title = styled.div`
+//   font-size: 23px;
+//   font-family: 'Andika New Basic', sans-serif;
+// `;
 
 const Time = styled.div`
   font-size: 20px;
   font-family: 'Andika New Basic', sans-serif;
   font-style: italic;
+  color: #484848;
 `;
 
 const Location = styled.div`
@@ -60,15 +64,16 @@ const PhotoDetails = ({petName, lat, lon, city, time, contactNo, description}) =
   }
   return (
     <Container>
-      <Top>
-        {selectName()}
-        {/*<Name>{petName === 'NA' ? 'Missing' : petName}</Name>*/}
-        <IconMail></IconMail>
-      </Top>
-      <Title>Last seen</Title>
-      <Time>{time}</Time>
+      <Wrapper>
+        <Top>
+          {selectName()}
+          {/*<Name>{petName === 'NA' ? 'Missing' : petName}</Name>*/}
+          <IconMail></IconMail>
+        </Top>
+      </Wrapper>
+      <Time>Last seen {time}</Time>
       <Location>{city}</Location>
-      <Description>{description === 'NA' ? '' : description}</Description>
+      <Description>Description: {description === 'NA' ? '' : description}</Description>
     </Container>
   )
 }

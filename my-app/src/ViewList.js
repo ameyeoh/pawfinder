@@ -18,9 +18,13 @@ const Card = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 15px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid transparent;
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  &:hover {
+    border: 1px solid #3f51b5;
+    transform: scale(1.03);
+  }
 `;
 
 const ViewList = ({dogs}) => {

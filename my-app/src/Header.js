@@ -21,9 +21,9 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 40px;
-  font-family: 'Andika New Basic', sans-serif;
-  font-color: #222222;
+  font-size: 35px;
+  font-family: 'Amaranth', sans-serif;
+  color: #3f51b5;
 `;
 
 const Header = () => {
@@ -31,7 +31,7 @@ const Header = () => {
     <Container>
       <Wrapper>
         <IconPaw />
-        <Title>PawFinder</Title>
+        <Title>pawfinder</Title>
       </Wrapper>
       <HeaderDetails />
     </Container>

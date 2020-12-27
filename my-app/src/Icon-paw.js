@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Icon = styled.div`
   margin-left: 20px;
-  margin-right: 30px;
+  margin-right: 20px;
   margin-top: 6px;
   width: 40px;
 `;
@@ -11,7 +11,7 @@ const Icon = styled.div`
 const IconPaw = () => {
   return (
     <Icon>
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="40pt" height="40pt" viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="40pt" height="35pt" viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
         <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#3f51b5" stroke="none">
           <path d="M4615 12476 c-167 -39 -293 -112 -436 -255 -116 -115 -199 -232 -279 -391 -477 -954 -316 -2528 353 -3430 91 -123 249 -285 357 -366 354 -267 752 -281 1071 -38 327 250 551 732 636 1369 21 164 25 672 5 840 -82 702 -291 1283 -618 1722 -82 109 -243 273 -344 350 -94 71 -272 163 -365 188 -83 23 -302 29 -380 11z"/>
           <path d="M8546 12274 c-311 -61 -636 -299 -905 -661 -346 -465 -580 -1080 -668 -1758 -28 -216 -25 -698 5 -894 70 -447 219 -789 442 -1011 191 -192 431 -281 675 -252 581 72 1154 706 1460 1616 254 755 281 1550 73 2156 -203 591 -615 897 -1082 804z"/>

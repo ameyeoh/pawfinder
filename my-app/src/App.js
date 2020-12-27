@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Map from './Map';
+import Mapper from './Mapper';
 import Header from './Header';
 import ViewList from './ViewList';
 import styled from 'styled-components';
@@ -42,7 +42,7 @@ class App extends React.Component {
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
   }
 
   render() {
@@ -52,7 +52,7 @@ class App extends React.Component {
           <Header />
         </Top>
         <Bottom>
-          <Map />
+          <Mapper dogs={this.state.dogs}/>
           <ViewList dogs={this.state.dogs}/>
         </Bottom>
       </Content>

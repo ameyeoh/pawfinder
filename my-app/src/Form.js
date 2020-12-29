@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import S3FileUpload from 'react-s3';
+import axios from 'axios';
 
 const Container = styled.div`
     position: absolute;
-    top: 42%;
+    top: 47%;
     left: 50%;
     width: 454px;
     height: 850px;
@@ -20,7 +22,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 35px;
+  font-size: 25px;
   font-family: 'Amaranth', sans-serif;
   color: #3f51b5;
   margin-top: 20px;
@@ -134,26 +136,115 @@ class Form extends React.Component {
     super(props);
     this.state = {
       petStatus: '',
-      dog: {},
+      phonePlaceholder: 'contact no',
+      petName: undefined,
+      url: '',
+      lat: '',
+      lon: '',
+      city: '',
+      time: '',
+      contactNo: '',
+      description: ''
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleContact = this.handleContact.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.getConfig = this.getConfig.bind(this);
+  }
+
+  handleChange(e) {
+    if (e.target.value === 'found') {
+      this.setState({petName: 'NA'});
+    }
+    if (e.target.value === 'missing' || e.target.value === 'select pet status') {
+      this.setState({petName: undefined});
+    }
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  handleContact() {
+    const value = this.state.contactNo;
+    const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    return (
+      value.replace(phoneRegex, '($1) $2-$3')
+    )
+  }
+
+  getConfig() {
+    return ({
+      bucketName: process.env.REACT_APP_AWS_BUCKETNAME,
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESSKEY,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESSKEY
+    });
+  }
+
+  handleUpload(e) {
+    S3FileUpload.uploadFile(e.target.files[0], this.getConfig())
+    .then((data) => {
+      return data.location;
+    })
+    .then((location) => {
+      this.setState({url: location});
+    })
+    .catch((err) => {
+      alert(err);
+    });
+  }
+
+  //todo: enable auto complete address
+  //todo: convert address to lat and lon
+
+  handleSubmit(e) {
+    axios.post('/api/dogs', {
+      petname: this.state.petName,
+      url: this.state.url,
+      lat: this.state.lat,
+      lon: this.state.lon,
+      city: this.state.city,
+      time: this.state.time,
+      contactno: this.state.contactNo,
+      description: this.state.description
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    // todo: take to next page
+    e.preventDefault();
   }
 
   render() {
     return (
       <Container>
         <Title>Start Your Alert</Title>
-        <Select id="petStatus" name="petStatus">
+        <Select id="petStatus" name="petStatus" onChange={this.handleChange} value={this.state.petStatus} required>
           <option value="select pet status">Select Pet Status</option>
           <option value="missing">missing</option>
           <option value="found">found</option>
         </Select>
-        <Input type="text" id="pname" name="petname" placeholder="pet name"/>
-        <Input type="text" id="location" name="location" placeholder="nearest address last seen"/>
-        <Input type="text" id="contact" name="contact" placeholder="contact no"/>
-        <Input type="text" id="description" name="description" placeholder="description"/>
+        <Input type="text" id="pname" name="petName" placeholder="pet name" value={this.state.petName} onChange={this.handleChange} required/>
+        <Input type="text" id="location" name="location" placeholder="nearest address last seen" onChange={this.handleChange} required/>
+        <Input
+          type="text"
+          id="contact"
+          name="contact"
+          pattern="[0-9]*"
+          placeholder={this.state.phonePlaceholder}
+          value={this.handleContact()}
+          maxLength="10"
+          onChange={
+            (event) => this.setState({contactNo: event.target.value})}
+          required/>
+        <Input type="text" id="description" name="description" placeholder="description" onChange={this.handleChange}/>
         <Title style={{marginTop: '50px'}}>Upload A Photo</Title>
         <Photo>
-          <Upload type="file" id="upload"/>
+          <Upload type="file" id="upload" accept="image/png, image/jpeg, image/jpg" onChange={this.handleUpload}/>
         </Photo>
         <Submit type="submit" value="Submit">Submit</Submit>
         <Wrapper>

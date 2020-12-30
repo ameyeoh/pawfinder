@@ -2,8 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import S3FileUpload from 'react-s3';
 import axios from 'axios';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from 'react-places-autocomplete';
+import LocationInput from './LocationInput';
 
-const Container = styled.div`
+const Container = styled.form`
     position: absolute;
     top: 47%;
     left: 50%;
@@ -136,22 +142,25 @@ class Form extends React.Component {
     super(props);
     this.state = {
       petStatus: '',
-      phonePlaceholder: 'contact no',
+      address: '',
       petName: undefined,
       url: '',
       lat: '',
       lon: '',
       city: '',
-      time: '',
+      time: 'less than 15 minutes ago',
       contactNo: '',
       description: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleAddress = this.handleAddress.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.handleContact = this.handleContact.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
+    this.getCity = this.getCity.bind(this);
     this.getConfig = this.getConfig.bind(this);
   }
 
@@ -164,6 +173,33 @@ class Form extends React.Component {
     }
     this.setState({[e.target.name]: e.target.value});
   }
+
+  handleAddress(address) {
+    this.setState({ address });
+  };
+
+  getCity(addressComponents) {
+    // maps length of address components (key) to the index of city (value)
+    const selector = {
+      4: 0,
+      8: 2,
+      9: 3
+    }
+    const cityIndex = selector[addressComponents.length] ? selector[addressComponents.length] : 0;
+    return addressComponents[cityIndex].long_name;
+  }
+
+  handleSelect(address) {
+    geocodeByAddress(address)
+    .then(results => {
+      const selectedCity = this.getCity(results[0].address_components);
+      this.setState({city: selectedCity});
+      return results;
+    })
+    .then(results => getLatLng(results[0]))
+    .then(latLng => this.setState({lat: latLng.lat, lon: latLng.lng}))
+    .catch(error => console.error('Error', error));
+  };
 
   handleContact() {
     const value = this.state.contactNo;
@@ -195,10 +231,8 @@ class Form extends React.Component {
     });
   }
 
-  //todo: enable auto complete address
-  //todo: convert address to lat and lon
-
   handleSubmit(e) {
+    console.log('submitted clicked');
     axios.post('/api/dogs', {
       petname: this.state.petName,
       url: this.state.url,
@@ -221,7 +255,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container onSubmit={this.handleSubmit}>
         <Title>Start Your Alert</Title>
         <Select id="petStatus" name="petStatus" onChange={this.handleChange} value={this.state.petStatus} required>
           <option value="select pet status">Select Pet Status</option>
@@ -229,15 +263,58 @@ class Form extends React.Component {
           <option value="found">found</option>
         </Select>
         <Input type="text" id="pname" name="petName" placeholder="pet name" value={this.state.petName} onChange={this.handleChange} required/>
-        <Input type="text" id="location" name="location" placeholder="nearest address last seen" onChange={this.handleChange} required/>
+        {/*location here*/}
+        <LocationInput handleAddress={this.handleAddress} handleSelect={this.handleSelect} value={this.state.address}/>
+        {/*<Input type="text" id="location" name="location" placeholder="nearest address last seen" onChange={this.handleChange} required/>*/}
+        {/*<PlacesAutocomplete*/}
+        {/*  name="address"*/}
+        {/*  value={this.state.address}*/}
+        {/*  onChange={this.handleAddress}*/}
+        {/*  onSelect={this.handleSelect}*/}
+        {/*>*/}
+        {/*  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (*/}
+        {/*    <div>*/}
+        {/*      <Input*/}
+        {/*        {...getInputProps({*/}
+        {/*          placeholder: 'nearest address last seen',*/}
+        {/*          className: 'location-search-input',*/}
+        {/*        })}*/}
+        {/*      />*/}
+        {/*      <div className="autocomplete-dropdown-container">*/}
+        {/*        {loading && <div>Loading...</div>}*/}
+        {/*        {suggestions.map(suggestion => {*/}
+        {/*          const className = suggestion.active*/}
+        {/*            ? 'suggestion-item--active'*/}
+        {/*            : 'suggestion-item';*/}
+        {/*          // inline style for demonstration purpose*/}
+        {/*          const style = suggestion.active*/}
+        {/*            ? { backgroundColor: '#fafafa', cursor: 'pointer', padding: '12px 20px', fontSize: '16px', fontFamily: 'Open Sans', width: '405px', height: '45px' }*/}
+        {/*            // : { width: '445px', height: '65px', padding: '12px 20px', margin: '8px 0', border: '1px solid #ccc', borderRadius: '4px', boxSizing: 'border-box', fontSize: '16px', fontFamily: 'Open Sans', cursor: 'pointer' }*/}
+        {/*            : { backgroundColor: '#ffffff', cursor: 'pointer', padding: '12px 20px', fontSize: '16px', fontFamily: 'Open Sans', width: '405px', height: '45px' };*/}
+        {/*          return (*/}
+        {/*            <div*/}
+        {/*              {...getSuggestionItemProps(suggestion, {*/}
+        {/*                className,*/}
+        {/*                style,*/}
+        {/*              })}*/}
+        {/*            >*/}
+        {/*              <span>{suggestion.description}</span>*/}
+        {/*            </div>*/}
+        {/*          );*/}
+        {/*        })}*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  )}*/}
+        {/*</PlacesAutocomplete>*/}
+
         <Input
           type="text"
           id="contact"
           name="contact"
-          pattern="[0-9]*"
-          placeholder={this.state.phonePlaceholder}
+          pattern="[(][0-9]{3}[)] [0-9]{3}[-][0-9]{4}"
+          placeholder="contact no"
           value={this.handleContact()}
-          maxLength="10"
+          maxLength="14"
           onChange={
             (event) => this.setState({contactNo: event.target.value})}
           required/>

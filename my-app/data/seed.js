@@ -37,12 +37,12 @@ const dogUrls = [
 ];
 
 const petNames = [
-  'Fido', 'Lost', 'Lost', 'Lost', 'Bella',
-  'Lost', 'Lost', 'Lost', 'Lost', 'Loki',
-  'Lost', 'Lost', 'Reggie', 'Lost', 'Baxter',
-  'Oreo', 'Lost', 'Lost', 'Harley', 'Lost',
-  'Lost', 'Coco', 'Lost', 'Lost', 'Lost',
-  'Lost', 'Lost', 'Lost', 'Luna', 'Lost',
+  'Fido', 'NA', 'NA', 'NA', 'Bella',
+  'NA', 'NA', 'NA', 'NA', 'Loki',
+  'NA', 'NA', 'Reggie', 'NA', 'Baxter',
+  'Oreo', 'NA', 'NA', 'Harley', 'NA',
+  'NA', 'Coco', 'NA', 'NA', 'NA',
+  'NA', 'NA', 'NA', 'Luna', 'NA',
 ];
 
 const dogLocations = [

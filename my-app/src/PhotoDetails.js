@@ -56,7 +56,6 @@ const Lost = styled.div`
 `;
 
 const PhotoDetails = ({petName, lat, lon, city, time, contactNo, description}) => {
-  // const displayName = petName === 'NA' ? <Lost>lost</Lost> : <Name>{petName.toUpperCase()}</Name>
   const selectName = () => {
     if (petName === 'NA') {
       return (<Lost>lost</Lost>);
@@ -69,7 +68,6 @@ const PhotoDetails = ({petName, lat, lon, city, time, contactNo, description}) =
       <Wrapper>
         <Top>
           {selectName()}
-          {/*<Name>{petName === 'NA' ? 'Missing' : petName}</Name>*/}
           <IconMail></IconMail>
         </Top>
       </Wrapper>

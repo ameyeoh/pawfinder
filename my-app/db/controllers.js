@@ -11,20 +11,12 @@ const getDogs = (req, res) => {
 
 const addDog = (req, res) => {
   console.log(req.body);
-  // to modify
-  const {url, furcolor, lat, lon, contactno, description} = req.body;
-
-  // const {picName, furcolor, address, contactno, description} = req.body;
-
-  // compute url
-  // const url = `https://fec-ay.s3-us-west-1.amazonaws.com/${picName}.jpg`
-
-  // use google maps api to get lat and lon based on address OR based on form submission
+  const {petname, url, lat, lon, city, time, contactno, description} = req.body;
 
   pool.query(
-    `INSERT INTO dogs (url, furcolor, lat, lon, contactno, description) VALUES 
-    ($1, $2, $3, $4, $5, $6)`,
-    [url, furcolor, lat, lon, contactno, description],
+    `INSERT INTO dogs (petname, url, lat, lon, city, time, contactno, description) VALUES 
+    ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    [petname, url, lat, lon, city, time, contactno, description],
     (err, results) => {
       if (err) {
         throw err;

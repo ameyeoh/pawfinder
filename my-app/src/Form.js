@@ -4,7 +4,6 @@ import S3FileUpload from 'react-s3';
 import axios from 'axios';
 import PlacesAutocomplete, {
   geocodeByAddress,
-  geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
 import LocationInput from './LocationInput';
@@ -263,49 +262,7 @@ class Form extends React.Component {
           <option value="found">found</option>
         </Select>
         <Input type="text" id="pname" name="petName" placeholder="pet name" value={this.state.petName} onChange={this.handleChange} required/>
-        {/*location here*/}
         <LocationInput handleAddress={this.handleAddress} handleSelect={this.handleSelect} value={this.state.address}/>
-        {/*<Input type="text" id="location" name="location" placeholder="nearest address last seen" onChange={this.handleChange} required/>*/}
-        {/*<PlacesAutocomplete*/}
-        {/*  name="address"*/}
-        {/*  value={this.state.address}*/}
-        {/*  onChange={this.handleAddress}*/}
-        {/*  onSelect={this.handleSelect}*/}
-        {/*>*/}
-        {/*  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (*/}
-        {/*    <div>*/}
-        {/*      <Input*/}
-        {/*        {...getInputProps({*/}
-        {/*          placeholder: 'nearest address last seen',*/}
-        {/*          className: 'location-search-input',*/}
-        {/*        })}*/}
-        {/*      />*/}
-        {/*      <div className="autocomplete-dropdown-container">*/}
-        {/*        {loading && <div>Loading...</div>}*/}
-        {/*        {suggestions.map(suggestion => {*/}
-        {/*          const className = suggestion.active*/}
-        {/*            ? 'suggestion-item--active'*/}
-        {/*            : 'suggestion-item';*/}
-        {/*          // inline style for demonstration purpose*/}
-        {/*          const style = suggestion.active*/}
-        {/*            ? { backgroundColor: '#fafafa', cursor: 'pointer', padding: '12px 20px', fontSize: '16px', fontFamily: 'Open Sans', width: '405px', height: '45px' }*/}
-        {/*            // : { width: '445px', height: '65px', padding: '12px 20px', margin: '8px 0', border: '1px solid #ccc', borderRadius: '4px', boxSizing: 'border-box', fontSize: '16px', fontFamily: 'Open Sans', cursor: 'pointer' }*/}
-        {/*            : { backgroundColor: '#ffffff', cursor: 'pointer', padding: '12px 20px', fontSize: '16px', fontFamily: 'Open Sans', width: '405px', height: '45px' };*/}
-        {/*          return (*/}
-        {/*            <div*/}
-        {/*              {...getSuggestionItemProps(suggestion, {*/}
-        {/*                className,*/}
-        {/*                style,*/}
-        {/*              })}*/}
-        {/*            >*/}
-        {/*              <span>{suggestion.description}</span>*/}
-        {/*            </div>*/}
-        {/*          );*/}
-        {/*        })}*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*  )}*/}
-        {/*</PlacesAutocomplete>*/}
 
         <Input
           type="text"

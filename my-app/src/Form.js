@@ -161,6 +161,7 @@ class Form extends React.Component {
 
     this.getCity = this.getCity.bind(this);
     this.getConfig = this.getConfig.bind(this);
+    this.sendToHomepage = this.sendToHomepage.bind(this);
   }
 
   handleChange(e) {
@@ -230,6 +231,10 @@ class Form extends React.Component {
     });
   }
 
+  sendToHomepage() {
+    this.props.history.push('/homepage');
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     axios.post('/api/dogs', {
@@ -243,7 +248,8 @@ class Form extends React.Component {
       description: this.state.description
     })
     .then(() => {
-      this.props.history.push('/homepage');
+      this.sendToHomepage();
+      // this.props.history.push('/homepage');
     })
     .catch((error) => {
       console.log(error);
@@ -285,7 +291,7 @@ class Form extends React.Component {
           </Details>
           <Details>
             <DetailsText style={{color: 'grey'}}>Visit our</DetailsText>
-            <Link style={{color: '#3f51b5', marginLeft: '4px'}}>homepage</Link>
+            <Link style={{color: '#3f51b5', marginLeft: '4px'}} onClick={this.sendToHomepage}>homepage</Link>
           </Details>
         </Wrapper>
       </Container>

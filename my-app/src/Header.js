@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import IconPaw from './Icon-paw';
 import HeaderDetails from './HeaderDetails';
@@ -18,6 +19,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.div`
@@ -26,14 +30,17 @@ const Title = styled.div`
   color: #3f51b5;
 `;
 
-const Header = () => {
+const Header = ({toggleModal}) => {
+  const history = useHistory();
+  const handleClick = () => history.push('/');
+
   return (
     <Container>
-      <Wrapper>
+      <Wrapper onClick={handleClick}>
         <IconPaw />
         <Title>pawfinder</Title>
       </Wrapper>
-      <HeaderDetails />
+      <HeaderDetails toggleModal={toggleModal} />
     </Container>
   )
 }

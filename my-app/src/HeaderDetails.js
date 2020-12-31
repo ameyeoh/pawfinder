@@ -12,6 +12,10 @@ const Text = styled.div`
   color: #979797;
   font-family: 'Andika New Basic', sans-serif;
   font-size: 20px;
+  &:hover {
+    cursor: pointer;
+    color: #3f51b5;
+  }
 `;
 
 const Pipe = styled.div`
@@ -23,10 +27,10 @@ const Pipe = styled.div`
   margin-right: 20px;
 `;
 
-const HeaderDetails = () => {
+const HeaderDetails = ({toggleModal}) => {
   return (
     <Container>
-      <Text>POST A PHOTO</Text>
+      <Text onClick={toggleModal}>POST A PHOTO</Text>
       <Pipe></Pipe>
       <Text>SIGN IN</Text>
     </Container>

@@ -44,7 +44,7 @@ const Details = styled.div`
   margin-top: 2px;
 `;
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   return (
     <Container>
       <Bar>
@@ -52,7 +52,7 @@ const LandingPage = () => {
         <Details>Keeping your pets safe and healthy</Details>
         <Details>with help from a connected community</Details>
       </Bar>
-      <Form>
+      <Form history={props.history}>
       </Form>
     </Container>
   )

@@ -231,7 +231,7 @@ class Form extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('submitted clicked');
+    e.preventDefault();
     axios.post('/api/dogs', {
       petname: this.state.petName,
       url: this.state.url,
@@ -242,14 +242,12 @@ class Form extends React.Component {
       contactno: this.state.contactNo,
       description: this.state.description
     })
-    .then(function (response) {
-      console.log(response);
+    .then(() => {
+      this.props.history.push('/homepage');
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
-    // todo: take to next page
-    e.preventDefault();
   }
 
   render() {
@@ -263,7 +261,6 @@ class Form extends React.Component {
         </Select>
         <Input type="text" id="pname" name="petName" placeholder="pet name" value={this.state.petName} onChange={this.handleChange} required/>
         <LocationInput handleAddress={this.handleAddress} handleSelect={this.handleSelect} value={this.state.address}/>
-
         <Input
           type="text"
           id="contact"

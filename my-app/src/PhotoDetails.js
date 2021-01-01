@@ -49,18 +49,49 @@ const Description = styled.div`
   font-family: 'Andika New Basic', sans-serif;
 `;
 
+const NameWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 const Lost = styled.div`
-  font-size: 20px;
-  font-family: 'Andika New Basic', sans-serif;
-  font-color: grey;
+  font-size: 14px;
+  font-family: Arial,sans-serif;
+  color: white;
+  height: 8px;
+  background: #263588f7;
+  padding: 12px 5px 3px 8px;
+  border-radius: 55px;
+  line-height: 2px;
+  letter-spacing: 2.3px;
+  margin-top: 10px;
+`;
+
+const Missing = styled.div`
+  font-size: 14px;
+  font-family: Arial,sans-serif;
+  color: white;
+  height: 8px;
+  background: #0d5110;
+  padding: 12px 5px 3px 8px;
+  border-radius: 55px;
+  line-height: 2px;
+  letter-spacing: 2.3px;
+  margin-top: 20px;
+  margin-left: 9px;
 `;
 
 const PhotoDetails = ({petName, lat, lon, city, time, contactNo, description}) => {
   const selectName = () => {
     if (petName === 'NA') {
-      return (<Lost>lost</Lost>);
+      return (<Lost>LOST</Lost>);
     } else {
-      return (<Name>{petName.toUpperCase()}</Name>);
+      return (
+        <NameWrapper>
+          <Name>{petName.toUpperCase()}</Name>
+          <Missing>MISSING</Missing>
+        </NameWrapper>
+      );
     }
   }
   return (

@@ -112,7 +112,7 @@ const PhotoDetails = ({petName, lat, lon, city, time, contactNo, description}) =
         </svg>
         <Location>{city}</Location>
       </LocWrapper>
-      <Description>Description: {description === 'NA' ? '' : description}</Description>
+      <Description>{description === 'NA' ? '' : `Description: ${description}`}</Description>
     </Container>
   )
 }

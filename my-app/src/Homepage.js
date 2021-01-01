@@ -30,8 +30,6 @@ const Bottom = styled.div`
 `;
 
 const Modal = styled.div`
-  // width: 100%;
-  // height: 100%;
   width: 454px;
   height: 850px;
   top: 20%;
@@ -45,10 +43,12 @@ class Homepage extends React.Component {
     this.state = {
       dogs: [],
       modal: false,
+      pinId: ''
     };
 
     this.toggleModal = this.toggleModal.bind(this);
     this.exitModal = this.exitModal.bind(this);
+    this.setPin = this.setPin.bind(this);
   }
 
   toggleModal() {
@@ -59,6 +59,10 @@ class Homepage extends React.Component {
     if (this.state.modal) {
       this.setState({modal: false});
     }
+  }
+
+  setPin(id) {
+    this.setState({pinId: id-1});
   }
 
   componentDidMount() {
@@ -90,8 +94,8 @@ class Homepage extends React.Component {
           <Header toggleModal={this.toggleModal} />
         </Top>
         <Bottom modalActive={this.state.modal} onClick={this.exitModal}>
-          <Mapper dogs={this.state.dogs}/>
-          <ViewList dogs={this.state.dogs}/>
+          <Mapper dogs={this.state.dogs} setPin={this.setPin}/>
+          <ViewList dogs={this.state.dogs} pinId={this.state.pinId}/>
         </Bottom>
         {displayModal()}
       </HomePage>

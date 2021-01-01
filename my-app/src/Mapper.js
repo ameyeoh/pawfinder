@@ -8,7 +8,7 @@ const Container = styled.div`
   flex-grow: 1;
 `;
 
-function Mapper({dogs}) {
+function Mapper({dogs, setPin}) {
   return (
     <Container>
       <GoogleMapReact
@@ -20,8 +20,10 @@ function Mapper({dogs}) {
           return (
             <MapperPin
               key={id}
+              id={id}
               lat={lat}
               lng={lon}
+              setPin={setPin}
             />
           );
         })}

@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
+import styled, { css } from 'styled-components';
 import Photo from './Photo';
 import PhotoDetails from './PhotoDetails';
 
@@ -24,14 +24,27 @@ const Card = styled.div`
   &:hover {
     border: 1px solid #3f51b5;
     transform: scale(1.03);
-  }
+  };
 `;
 
-const ViewList = ({dogs}) => {
-  const items = dogs.map(({
+const HighlightCard = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  border: 1px solid #3f51b5;
+  transform: scale(1.03);
+`;
+
+const ViewList = ({dogs, pinId}) => {
+  const itemsRef = useRef(new Array());
+  const cards = dogs.map(({
     id, url, petname, lat, lon, city, time, contactNo, description
-  }) => (
-    <Card key={id}>
+  }) => ( pinId === id ?
+    (<HighlightCard key={id} ref={(element) => itemsRef.current.push(element)}>
       <Photo imgUrl={url}/>
       <PhotoDetails
         petName={petname}
@@ -42,12 +55,34 @@ const ViewList = ({dogs}) => {
         contactNo={contactNo}
         description={description}
       />
-    </Card>
+    </HighlightCard>) :
+      (<Card key={id} ref={(element) => itemsRef.current.push(element)}>
+        <Photo imgUrl={url}/>
+        <PhotoDetails
+          petName={petname}
+          lat={lat}
+          lon={lon}
+          city={city}
+          time={time}
+          contactNo={contactNo}
+          description={description}
+        />
+      </Card>)
   ));
+
+  const handleScroll = pinIndex => {
+    if (pinIndex) {
+      console.log('items ref', itemsRef);
+      itemsRef.current[pinIndex].scrollIntoView({ block: "center", behavior: "smooth" });
+    } else {
+      console.log('initial render');
+    }
+  };
 
   return (
     <Container className="right-container">
-      {items}
+      {cards}
+      {handleScroll(pinId)}
     </Container>
 
   )
